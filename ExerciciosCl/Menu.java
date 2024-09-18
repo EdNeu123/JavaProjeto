@@ -56,6 +56,7 @@ public class Menu {
                 Tutor tutorAnimal = new Tutor(idTutor, nomeTutor, Telefone, Email);
                 Tutor.tutores.add(tutorAnimal);
                 break;
+
                 //Fim Cadastro Tutor
             case 4:
                 for (Animal animaisPrint : animais) {
