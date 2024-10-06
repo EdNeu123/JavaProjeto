@@ -8,9 +8,9 @@ public class Curso {
     private Professor professor;
     private List<Aluno> alunos;
 
-    public Curso(int id, 
-    String nome, 
-    int cargaHoraria, 
+    public Curso(int id,
+    String nome,
+    int cargaHoraria,
     Professor professor
     ) {
         this.id = id;
@@ -22,7 +22,6 @@ public class Curso {
     }
 
     // Getters e Setters
-    
     public int getId() {
         return id;
     }
@@ -39,8 +38,10 @@ public class Curso {
         return alunos;
     }
 
-    @Override
-    public String toString() {
-        return "Curso: " + nome + ", Carga Horária: " + cargaHoraria + ", Professor: " + professor.getNome();
+    public void exibir() {
+        System.out.println("ID: " + this.id);
+        System.out.println("Nome: " + this.nome);
+        System.out.println("Carga Horária: " + this.cargaHoraria);
+        System.out.println("Professor: " + this.professor.getNome());
     }
 }

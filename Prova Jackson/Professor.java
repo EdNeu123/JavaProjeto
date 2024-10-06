@@ -8,8 +8,8 @@ public class Professor {
     private List<Curso> cursos;
 
     public Professor(
-        int id, 
-        String nome, 
+        int id,
+        String nome,
         String departamento
         ){
         this.id = id;
@@ -18,26 +18,29 @@ public class Professor {
         this.cursos = new ArrayList<>();
     }
 
-    // Getters e Setters
-
-    public int getId() {
+    public int getId() { //Pegar ID
         return id;
     }
 
-        public String getNome() {
+        public String getNome() { //Pegar Nome
         return nome;
     }
 
-    public void adicionarCurso(Curso curso) {
+    public void adicionarCurso(Curso curso) { //Set Curso
         cursos.add(curso);
     }
 
-    public List<Curso> getCursos() {
+    public List<Curso> getCursos() { //Pegar Curso
         return cursos;
     }
 
-    @Override
-    public String toString() {
-        return "Professor: " + nome + ", Departamento: " + departamento;
+    public void exibir() { //Organização da listagem
+        System.out.println("ID: " + this.id);
+        System.out.println("Nome: " + this.nome);
+        System.out.println("Departamento: " + this.departamento);
+        System.out.println("Cursos:");
+        for (Curso curso : cursos) {
+            System.out.println("  - " + curso.getNome() + " (Alunos: " + curso.getAlunos().size() + ")");
+        }
     }
 }

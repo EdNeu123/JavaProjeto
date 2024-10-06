@@ -6,10 +6,10 @@ public class Aluno {
     private Curso curso;
 
     public Aluno(
-        int id, 
-        String nome, 
-        String dataNascimento, 
-        String cpf, 
+        int id,
+        String nome,
+        String dataNascimento,
+        String cpf,
         Curso curso
     ){
         this.id = id;
@@ -20,10 +20,11 @@ public class Aluno {
         curso.adicionarAluno(this);
     }
 
-    // Getters e Setters
-
-    @Override
-    public String toString() {
-        return "Aluno: " + nome + ", Data de Nascimento: " + dataNascimento + ", CPF: " + cpf + ", Curso: " + curso.getNome();
+    public void exibir() {
+        System.out.println("ID: " + this.id);
+        System.out.println("Nome: " + this.nome);
+        System.out.println("Data de Nascimento: " + this.dataNascimento);
+        System.out.println("CPF: " + this.cpf);
+        System.out.println("Curso: " + this.curso.getNome());
     }
 }
