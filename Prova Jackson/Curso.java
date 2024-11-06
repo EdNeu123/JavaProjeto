@@ -30,18 +30,18 @@ public class Curso {
 
     public void adicionarAluno(Aluno aluno) {
         alunos.add(aluno);
-    }
+    } //metodo unico para adicionar aluno
 
     public List<Aluno> getAlunos() {
         return alunos;
-    }
+    } //lista as bençãos divinas
 
     public void exibir() {
         System.out.println("ID: " + this.id);
         System.out.println("Nome: " + this.nome);
         System.out.println("Carga Horária: " + this.cargaHoraria);
         System.out.println("Professor: " + this.professor.getNome());
-    }
+    } //babado do console
 
     public void salvar() {
         String sql = "INSERT INTO Curso (id, nome, cargaHoraria, idProfessor) VALUES (?, ?, ?, ?)";
@@ -57,4 +57,4 @@ public class Curso {
             e.printStackTrace();
         }
     }
-}
+} //salva banco de dados

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Metodos {
+public class Metodos { //metodos grosseiro, evitar poluição!
     private static List<Professor> professores = new ArrayList<>();
     private static List<Curso> cursos = new ArrayList<>();
     private static List<Aluno> alunos = new ArrayList<>();
@@ -18,10 +18,10 @@ public class Metodos {
         String departamento = scanner.nextLine();
 
         Professor professor = new Professor(id, nome, departamento);
-        professor.salvar();
-        professores.add(professor);
+        professor.salvar(); //metodo em professor para salvar no DB
+        professores.add(professor); //metodo em professor para add no arraylist
         System.out.println("Professor cadastrado com sucesso!");
-    }
+    } 
 
     public static void cadastrarCurso() {
         System.out.println("Digite o ID do Curso:");
@@ -139,5 +139,17 @@ public class Metodos {
             System.out.println("Dígitos verificadores inválidos.");
         }
         return isValid;
+    }
+
+    public static void pausar() {
+        System.out.println("Pressione Enter para continuar...");
+        scanner.nextLine();
+        limparTela();
+    }
+
+    private static void limparTela() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }

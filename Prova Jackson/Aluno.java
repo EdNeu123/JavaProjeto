@@ -18,6 +18,7 @@ public class Aluno {
         curso.adicionarAluno(this);
     }
 
+                            //Exibe as informações do aluno no coisa de texto do F5.
     public void exibir() {
         System.out.println("ID: " + this.id);
         System.out.println("Nome: " + this.nome);
@@ -26,6 +27,7 @@ public class Aluno {
         System.out.println("Curso: " + this.curso.getNome());
     }
 
+                            //Salva as informações do aluno no banco de dados.
     public void salvar() {
         String sql = "INSERT INTO Aluno (id, nome, dataNascimento, cpf, idCurso) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
