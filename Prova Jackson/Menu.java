@@ -20,21 +20,27 @@ public class Menu {
             switch (opcao) {
                 case 1:
                     Metodos.cadastrarProfessor();
+                    Metodos.pausar();
                     break;
                 case 2:
                     Metodos.cadastrarCurso();
+                    Metodos.pausar();
                     break;
                 case 3:
                     Metodos.cadastrarAluno();
+                    Metodos.pausar();
                     break;
                 case 4:
                     Metodos.listarProfessores();
+                    Metodos.pausar();
                     break;
                 case 5:
                     Metodos.listarCursos();
+                    Metodos.pausar();
                     break;
                 case 6:
                     Metodos.listarAlunos();
+                    Metodos.pausar();
                     break;
                 case 0:
                     System.out.println("Você está saindo do programa!");
@@ -45,4 +51,5 @@ public class Menu {
         } while (opcao != 0);
         scanner.close();
     }
+    
 }

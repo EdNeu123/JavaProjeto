@@ -2,47 +2,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Metodos {
+public class Metodos { //metodos grosseiro, evitar poluição!
     private static List<Professor> professores = new ArrayList<>();
     private static List<Curso> cursos = new ArrayList<>();
     private static List<Aluno> alunos = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    // Fim Arrays e Intro Scanner
 
     public static void cadastrarProfessor() {
         System.out.println("Digite o ID do Professor:");
         int id = scanner.nextInt();
-        scanner.nextLine(); // "Lembrete \n"
+        scanner.nextLine();
         System.out.println("Digite o nome do Professor:");
         String nome = scanner.nextLine();
         System.out.println("Digite o departamento do Professor:");
         String departamento = scanner.nextLine();
 
         Professor professor = new Professor(id, nome, departamento);
-        professores.add(professor);
+        professor.salvar(); //metodo em professor para salvar no DB
+        professores.add(professor); //metodo em professor para add no arraylist
         System.out.println("Professor cadastrado com sucesso!");
-    }
+    } 
 
     public static void cadastrarCurso() {
         System.out.println("Digite o ID do Curso:");
         int id = scanner.nextInt();
-        scanner.nextLine(); // "Lembrete \n"
+        scanner.nextLine();
         System.out.println("Digite o nome do Curso:");
         String nome = scanner.nextLine();
         System.out.println("Digite a carga horária do Curso:");
         int cargaHoraria = scanner.nextInt();
-        scanner.nextLine(); // "Lembrete \n"
+        scanner.nextLine();
         System.out.println("Digite o ID do Professor responsável:");
         int idProfessor = scanner.nextInt();
-        scanner.nextLine(); // "Lembrete \n"
+        scanner.nextLine();
 
-        Professor professor = professores.stream() //bagulho para filtrar informações conforme solicitações abaixo
-                .filter(p -> p.getId() == idProfessor) //confirmar se o id do professor
-                .findFirst() //puxa o primeiro a atender o requisito citado, favor não perguntar T-T
-                .orElse(null); //Eu não sei pq esse krl tah bugando!!!!!!!!! Revisar = )
+        Professor professor = professores.stream()
+                .filter(p -> p.getId() == idProfessor)
+                .findFirst()
+                .orElse(null);
 
-        if (professor != null) { //se o professor for difernte de nulo, adiciona a listagem
+        if (professor != null) {
             Curso curso = new Curso(id, nome, cargaHoraria, professor);
+            curso.salvar();
             cursos.add(curso);
             System.out.println("Curso cadastrado com sucesso!");
         } else {
@@ -53,7 +54,7 @@ public class Metodos {
     public static void cadastrarAluno() {
         System.out.println("Digite o ID do Aluno:");
         int id = scanner.nextInt();
-        scanner.nextLine(); // "Lembrete \n"
+        scanner.nextLine();
         System.out.println("Digite o nome do Aluno:");
         String nome = scanner.nextLine();
         System.out.println("Digite a data de nascimento do Aluno:");
@@ -61,7 +62,6 @@ public class Metodos {
         System.out.println("Digite o CPF do Aluno:");
         String cpf = scanner.nextLine();
 
-        // Validação de CPF
         if (!validarCPF(cpf)) {
             System.out.println("CPF inválido! Tente novamente.");
             return;
@@ -69,15 +69,16 @@ public class Metodos {
 
         System.out.println("Digite o ID do Curso:");
         int idCurso = scanner.nextInt();
-        scanner.nextLine(); // "Lembrete \n"
+        scanner.nextLine();
 
-        Curso curso = cursos.stream() //mesma coisa do professor
+        Curso curso = cursos.stream()
                 .filter(c -> c.getId() == idCurso)
                 .findFirst()
                 .orElse(null);
 
         if (curso != null) {
             Aluno aluno = new Aluno(id, nome, dataNascimento, cpf, curso);
+            aluno.salvar();
             alunos.add(aluno);
             System.out.println("Aluno cadastrado com sucesso!");
         } else {
@@ -86,38 +87,37 @@ public class Metodos {
     }
 
     public static void listarProfessores() {
-        for (Professor professor : professores) { //loop foreach para "comparar" a listagem
+        for (Professor professor : professores) {
             professor.exibir();
         }
-    }    
+    }
 
     public static void listarCursos() {
         for (Curso curso : cursos) {
             curso.exibir();
         }
-    }    
+    }
 
     public static void listarAlunos() {
         for (Aluno aluno : alunos) {
             aluno.exibir();
         }
-    }    
+    }
 
-    //ODIEI MEXER COM CPF =)
-    private static boolean validarCPF(String cpf) { //remove caracteres
+    private static boolean validarCPF(String cpf) {
         cpf = cpf.replaceAll("\\D", "");
 
-        if (cpf.length() != 11) {// Verifica se o CPF tem 11 dígitos
+        if (cpf.length() != 11) {
             System.out.println("CPF deve ter 11 dígitos.");
             return false;
         }
 
-        if (cpf.matches("(\\d)\\1{10}")) { // Verifica se todos os dígitos são iguais
+        if (cpf.matches("(\\d)\\1{10}")) {
             System.out.println("CPF não pode ter todos os dígitos iguais.");
             return false;
         }
 
-        int[] pesos = { 10, 9, 8, 7, 6, 5, 4, 3, 2 }; // Calcula os dígitos verificadores e valida sem necessidade de usar receita federal
+        int[] pesos = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
         int soma = 0;
         for (int i = 0; i < 9; i++) {
             soma += (cpf.charAt(i) - '0') * pesos[i];
@@ -133,11 +133,23 @@ public class Metodos {
         int segundoDigitoVerificador = 11 - (soma % 11);
         segundoDigitoVerificador = (segundoDigitoVerificador > 9) ? 0 : segundoDigitoVerificador;
 
-        boolean isValid = cpf.charAt(9) - '0' == primeiroDigitoVerificador  // Verifica se os dígitos verificadores são iguais aos do CPF
+        boolean isValid = cpf.charAt(9) - '0' == primeiroDigitoVerificador
                 && cpf.charAt(10) - '0' == segundoDigitoVerificador;
         if (!isValid) {
             System.out.println("Dígitos verificadores inválidos.");
         }
         return isValid;
+    }
+
+    public static void pausar() {
+        System.out.println("Pressione Enter para continuar...");
+        scanner.nextLine();
+        limparTela();
+    }
+
+    private static void limparTela() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }
